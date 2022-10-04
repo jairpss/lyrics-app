@@ -1,13 +1,30 @@
 import { useState } from 'react'
+import useLyrics from '../hooks/useLyrics'
 
 const Form = () => {
+
+    const {setAlert, searchLyrics} = useLyrics()
+
     const [search, setSearch] = useState({
         artist: '',
         song: ''
     })
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        if(Object.values(search).includes('')){
+            setAlert('Please write an artist and song name')
+            return
+        }
+        searchLyrics(search)
+        
+    }
+
   return (
-    <form>
+    <form
+        onSubmit={handleSubmit}
+    >
         <legend>Search by Artist and Song</legend>
 
         <div className="form-grid">
